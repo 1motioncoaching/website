@@ -346,13 +346,15 @@
       .booking-points { display: grid; gap: 12px; margin: 25px 0 23px; padding: 0; list-style: none; }
       .booking-points li { display: flex; align-items: flex-start; gap: 11px; color: var(--fg-2); }
       .booking-points li::before { color: var(--accent-ink); content: "↗"; }
-      .booking-box { min-height: 370px; display: grid; place-items: center; padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); text-align: center; }
+      .booking-box { min-height: 370px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); text-align: center; }
       .booking-box > div { max-width: 430px; }
       .calendar-icon { display: grid; width: 55px; height: 55px; place-items: center; margin: 0 auto 20px; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--accent-ink); }
       .calendar-icon svg { width: 23px; height: 23px; }
       .booking-box h3 { margin: 0; font: italic 800 29px "Barlow Condensed", sans-serif; text-transform: uppercase; }
       .booking-box p { margin: 10px 0 23px; color: var(--fg-2); font-size: 15px; }
-      .booking-box iframe { width: 100%; min-height: 620px; border: 0; border-radius: var(--radius); background: var(--card); }
+      .booking-box iframe { display: block; width: 100%; min-height: 620px; border: 0; border-radius: var(--radius); background: var(--card); }
+      .booking-direct-link { display: inline-block; margin: 12px 6px 5px; color: var(--fg-2); font-size: 14px; text-underline-offset: 4px; }
+      .booking-direct-link:hover { color: var(--fg); }
 
       .contact-section { padding-block: 88px; }
       .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; }
@@ -485,7 +487,7 @@
       }
     </style>
   </head>
-  <body data-booking-link="">
+  <body data-booking-link="https://app.acuityscheduling.com/schedule.php?owner=40672838">
     <header class="site-header">
       <nav class="nav wrap" aria-label="Main navigation">
         <a class="brand" href="#top" aria-label="One Motion Coaching home">
@@ -721,8 +723,8 @@
             <div>
               <span class="calendar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path><path d="m9 15 2 2 4-4"></path></svg></span>
               <h3>Booking calendar</h3>
-              <p>Add your Calendly or Cal.com booking URL to the <code>data-booking-link</code> attribute on the page to show your live calendar here. Until then, message Arber to arrange a time.</p>
-              <a class="button" href="https://wa.me/447465444761?text=Hi%20Arber%2C%20I%27d%20like%20to%20book%20a%20free%20consult." target="_blank" rel="noreferrer">Arrange a free consult</a>
+              <p>If the calendar does not appear, open the booking page directly to choose a time.</p>
+              <a class="button" href="https://app.acuityscheduling.com/schedule.php?owner=40672838" target="_blank" rel="noreferrer">Open booking calendar</a>
             </div>
           </div>
         </div>
@@ -983,6 +985,13 @@
           iframe.loading = "lazy";
           iframe.referrerPolicy = "strict-origin-when-cross-origin";
           box.replaceChildren(iframe);
+          const directLink = document.createElement("a");
+          directLink.className = "booking-direct-link";
+          directLink.href = parsedUrl.href;
+          directLink.target = "_blank";
+          directLink.rel = "noreferrer";
+          directLink.textContent = "Open the booking page in a new tab";
+          box.append(directLink);
         }
 
         const form = document.getElementById("contact-form");
