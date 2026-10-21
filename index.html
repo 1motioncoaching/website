@@ -380,9 +380,9 @@
       }
       .field input::placeholder, .field textarea::placeholder { color: var(--fg-3); }
       .field textarea { min-height: 125px; resize: vertical; }
-      .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
-      .form-actions button { border: 0; }
-      .form-email { color: var(--fg-2); font-size: 14px; text-underline-offset: 4px; }
+      .form-actions { display: grid; max-width: 500px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .form-actions .button { width: 100%; min-height: 52px; padding-inline: 12px; font-size: 15px; }
+      .form-email { color: var(--fg); }
       .form-status { min-height: 24px; margin: 0; color: var(--fg-2); font-size: 14px; }
 
       .instagram { padding: 25px 0; border-block: 1px solid var(--line); background: var(--bg-raised); }
@@ -483,6 +483,8 @@
         .theme-option { width: 30px; height: 30px; }
         .nav .button { padding: 8px 7px; font-size: 11px; white-space: nowrap; }
         .hero-kicker { gap: 8px; font-size: 9px; letter-spacing: .03em; }
+        .form-actions { gap: 8px; }
+        .form-actions .button { padding-inline: 6px; font-size: 12px; }
       }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
@@ -783,7 +785,7 @@
             <div class="field full">
               <div class="form-actions">
                 <button class="button" type="submit">Send via WhatsApp</button>
-                <button class="form-email" type="button" id="email-form">or send by email</button>
+                <button class="button button-quiet form-email" type="button" id="email-form">Send by email</button>
               </div>
               <p class="form-status" id="form-status" aria-live="polite"></p>
             </div>
