@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="Personal training in Stratford and online with Arber. Build muscle, lose fat and get stronger with structured, personalised coaching.">
+    <title>One Motion Coaching | Personal Training in Stratford &amp; Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&family=Barlow+Condensed:ital,wght@1,800;1,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0a0a0a;
+        --bg-raised: #121212;
+        --card: #1a1a1a;
+        --card-hover: #202020;
+        --fg: #e6e4dc;
+        --fg-2: #b2b0a9;
+        --fg-3: #85847d;
+        --line: #262626;
+        --line-strong: #3a3a37;
+        --accent: #d6ff3d;
+        --accent-ink: #d6ff3d;
+        --accent-shadow: #91ad16;
+        --ink: #0a0a0a;
+        --header: rgb(10 10 10 / 88%);
+        --radius: 6px;
+        --content: 1200px;
+      }
+
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --bg: #d9d6ce;
+        --bg-raised: #cfccc4;
+        --card: #e3e0d9;
+        --card-hover: #ece9e2;
+        --fg: #171815;
+        --fg-2: #45463f;
+        --fg-3: #686961;
+        --line: #c2bfb7;
+        --line-strong: #aaa89f;
+        --accent: #d6ff3d;
+        --accent-ink: #4a6600;
+        --accent-shadow: #91ad16;
+        --ink: #0a0a0a;
+        --header: rgb(217 214 206 / 90%);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: Barlow, Arial, sans-serif;
+        font-size: 17px;
+        line-height: 1.6;
+        transition: background-color .2s ease, color .2s ease;
+      }
+      a { color: inherit; }
+      button, input, select, textarea { font: inherit; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+        outline: 3px solid var(--accent-ink);
+        outline-offset: 4px;
+      }
+      img { max-width: 100%; }
+      .wrap { width: min(var(--content), calc(100% - 48px)); margin-inline: auto; }
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 18px;
+        color: var(--fg-3);
+        font: 500 12px/1.5 "JetBrains Mono", monospace;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before {
+        width: 9px;
+        height: 9px;
+        flex: 0 0 9px;
+        border-radius: 50%;
+        background: var(--accent);
+        content: "";
+      }
+      .section-title {
+        max-width: 850px;
+        margin: 0;
+        font: italic 900 clamp(42px, 6vw, 76px)/.96 "Barlow Condensed", Impact, sans-serif;
+        letter-spacing: -.025em;
+        text-transform: uppercase;
+      }
+      .section-intro { max-width: 630px; margin: 20px 0 0; color: var(--fg-2); font-size: 18px; }
+      .accent { color: var(--accent-ink); }
+      .mono { font-family: "JetBrains Mono", monospace; }
+      .button {
+        display: inline-flex;
+        min-height: 52px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 22px;
+        border: 1.5px solid transparent;
+        border-radius: 5px;
+        background: var(--accent);
+        box-shadow: 0 5px 0 var(--accent-shadow);
+        color: var(--ink);
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+      }
+      .button:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--accent-shadow); }
+      .button:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--accent-shadow); }
+      .button-quiet {
+        border-color: var(--line-strong);
+        background: transparent;
+        box-shadow: none;
+        color: var(--fg);
+      }
+      .button-quiet:hover { border-color: var(--fg-3); background: var(--card); box-shadow: none; }
+      .button-small { min-height: 44px; padding: 10px 17px; font-size: 15px; }
+
+      .site-header {
+        position: sticky;
+        z-index: 20;
+        top: 0;
+        border-bottom: 1px solid var(--line);
+        background: var(--header);
+        backdrop-filter: blur(14px);
+      }
+      .nav {
+        display: flex;
+        min-height: 104px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .brand { display: inline-flex; width: 196px; align-items: center; text-decoration: none; }
+      .brand img { display: block; width: 100%; height: auto; }
+      .brand img.logo-light { display: none; }
+      [data-theme="light"] .brand img.logo-dark { display: none; }
+      [data-theme="light"] .brand img.logo-light { display: block; }
+      .nav-actions { display: flex; align-items: center; gap: 28px; }
+      .logo-light { display: none; }
+      [data-theme="light"] .logo-dark { display: none; }
+      [data-theme="light"] .logo-light { display: block; }
+      .theme-control {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        padding: 5px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--bg);
+      }
+      .theme-option {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--fg-2);
+        cursor: pointer;
+      }
+      .theme-option[aria-pressed="true"] { background: var(--card); color: var(--fg); }
+      .theme-option svg { width: 19px; height: 19px; }
+
+      .hero { padding: 72px 0 88px; }
+      .hero-grid { display: grid; grid-template-columns: 1fr .95fr; align-items: center; gap: clamp(36px, 7vw, 88px); }
+      .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
+      .hero-kicker {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        color: var(--fg-3);
+        font: 400 13px/1.6 "JetBrains Mono", monospace;
+        letter-spacing: .14em;
+      }
+      .hero-kicker::before { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); content: ""; }
+      h1 {
+        margin: 0;
+        font: italic 900 clamp(56px, 7.4vw, 96px)/.9 "Barlow Condensed", Impact, sans-serif;
+        letter-spacing: -.015em;
+        text-transform: uppercase;
+      }
+      .hero-copy h1 .accent { white-space: nowrap; }
+      .hero-copy > p:not(.hero-kicker) { max-width: 540px; margin: 0; color: var(--fg-2); font-size: 20px; line-height: 1.55; }
+      .hero-buttons { display: flex; flex-wrap: wrap; gap: 13px; }
+      .hero-photo-wrap { position: relative; padding-left: 28px; }
+      .speed-lines { position: absolute; z-index: 2; top: 64px; left: 0; display: grid; gap: 10px; }
+      .speed-lines span { display: block; width: 92px; height: 12px; transform: skewX(-17deg); background: var(--fg); }
+      .speed-lines span:nth-child(2) { width: 70px; margin-left: 18px; }
+      .speed-lines span:nth-child(3) { width: 84px; margin-left: 8px; }
+      .speed-lines span:nth-child(4) { width: 56px; margin-left: 28px; background: var(--accent); }
+      .hero-photo {
+        overflow: hidden;
+        aspect-ratio: 4 / 5;
+        border-radius: var(--radius);
+        background: var(--card);
+      }
+      .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+      .coach-badge {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: var(--bg);
+      }
+      .coach-badge span:first-child { color: var(--fg-3); font: 400 11px "JetBrains Mono", monospace; letter-spacing: .12em; }
+      .coach-badge span:last-child { font-size: 16px; font-weight: 700; }
+
+      .stats { border-block: 1px solid var(--line); background: var(--bg-raised); }
+      .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+      .stat { min-height: 112px; display: flex; flex-direction: column; justify-content: center; padding: 18px; border-right: 1px solid var(--line); }
+      .stat:first-child { padding-left: 0; }
+      .stat:last-child { border-right: 0; }
+      .stat strong { color: var(--accent-ink); font: italic 800 24px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .stat span { margin-top: 8px; color: var(--fg-3); font-size: 13px; line-height: 1.3; }
+
+      .section { padding: 88px 0; }
+      .section-heading { margin-bottom: 34px; }
+      .coach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .coach-card {
+        min-height: 245px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--card);
+        transition: border-color .18s ease, transform .18s ease, background-color .18s ease;
+      }
+      .coach-card:hover { transform: translateY(-4px); border-color: var(--line-strong); background: var(--card-hover); }
+      .card-number { color: var(--accent-ink); font: 400 13px "JetBrains Mono", monospace; }
+      .coach-card h3 { margin: 30px 0 9px; font: italic 800 30px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .coach-card p { max-width: 340px; margin: 0; color: var(--fg-2); font-size: 15px; }
+
+      .about-band { padding: 0; background: var(--card); }
+      .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(40px, 8vw, 110px); padding-block: 76px; }
+      .about-mark { position: relative; display: grid; min-height: 300px; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+      .about-mark::before, .about-mark::after { position: absolute; width: 75%; height: 12px; transform: skewX(-17deg); background: var(--fg); content: ""; }
+      .about-mark::before { top: 29%; left: -9%; }
+      .about-mark::after { right: -12%; bottom: 29%; background: var(--accent); }
+      .about-mark img { position: relative; z-index: 1; width: min(60%, 300px); }
+      .about-copy p { max-width: 650px; color: var(--fg-2); }
+      .about-copy .section-intro { color: var(--fg); font-size: 20px; }
+      .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+      .tag { padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--fg-2); font: 400 11px "JetBrains Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+
+      .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .result-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+      .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; aspect-ratio: 1.75; background: var(--line); }
+      .result-placeholder { display: grid; align-content: center; justify-items: center; gap: 8px; padding: 14px; background: var(--bg-raised); color: var(--fg-3); text-align: center; }
+      .result-placeholder svg { width: 26px; height: 26px; opacity: .55; }
+      .result-placeholder span { font: 400 10px "JetBrains Mono", monospace; letter-spacing: .12em; }
+      .result-caption { padding: 17px 19px 20px; }
+      .result-caption strong { display: block; font: italic 800 21px "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .result-caption span { color: var(--fg-3); font: 400 11px "JetBrains Mono", monospace; letter-spacing: .08em; }
+      .permission-note { margin: 16px 0 0; color: var(--fg-3); font-size: 13px; }
+
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; border: 1px solid var(--line); border-radius: var(--radius); }
+      .step { min-height: 230px; padding: 27px; border-right: 1px solid var(--line); }
+      .step:last-child { border: 0; }
+      .step-number { color: var(--accent-ink); font: 400 13px "JetBrains Mono", monospace; }
+      .step h3 { margin: 32px 0 9px; font: italic 800 27px "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .step p { margin: 0; color: var(--fg-2); font-size: 15px; }
+
+      .review-section { padding-block: 76px; border-block: 1px solid var(--line); background: var(--bg-raised); }
+      .review-layout { display: grid; grid-template-columns: 1fr .8fr; align-items: end; gap: 40px; }
+      .review-card { padding: 25px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+      .quote-mark { color: var(--accent-ink); font: italic 900 64px/.8 "Barlow Condensed", sans-serif; }
+      .review-card blockquote { margin: 10px 0 20px; font: italic 600 22px/1.35 Barlow, sans-serif; }
+      .review-card p { margin: 0; color: var(--fg-3); font: 400 11px "JetBrains Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .review-footnote { margin: 12px 0 0; color: var(--fg-3); font-size: 12px; }
+
+      .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; gap: 14px; margin-top: 38px; }
+      .price-card { position: relative; display: flex; flex-direction: column; padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+      .price-card.featured { border-color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent-ink); }
+      .price-label { color: var(--fg-3); font: 500 11px "JetBrains Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+      .best-value { position: absolute; top: 18px; right: 18px; padding: 5px 8px; border-radius: 2px; background: var(--accent); color: var(--ink); font: 500 10px "JetBrains Mono", monospace; text-transform: uppercase; }
+      .price-card h3 { margin: 22px 0 14px; font: italic 800 28px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .price { margin: 0; font: italic 800 48px/.95 "Barlow Condensed", sans-serif; }
+      .price small { color: var(--fg-2); font: 400 14px Barlow, sans-serif; font-style: normal; }
+      .per-month { margin: 7px 0 16px; color: var(--accent-ink); font: 500 12px "JetBrains Mono", monospace; }
+      .price-card > p:not(.price):not(.per-month) { margin: 0 0 26px; color: var(--fg-2); font-size: 15px; }
+      .price-card .button { width: 100%; margin-top: auto; }
+      .online-price { display: grid; grid-template-columns: 1fr 2fr; align-items: center; gap: 28px; margin-top: 16px; padding: 24px 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised); }
+      .online-price h3 { margin: 0 0 7px; font: italic 800 23px "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .online-price .price { font-size: 38px; }
+      .online-price p { margin: 0; color: var(--fg-2); font-size: 15px; }
+      .online-price .button { justify-self: end; }
+
+      .booking-section { padding-block: 82px; background: var(--bg-raised); }
+      .booking-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: start; gap: 50px; }
+      .booking-points { display: grid; gap: 12px; margin: 25px 0 23px; padding: 0; list-style: none; }
+      .booking-points li { display: flex; align-items: flex-start; gap: 11px; color: var(--fg-2); }
+      .booking-points li::before { color: var(--accent-ink); content: "↗"; }
+      .booking-box { min-height: 370px; display: grid; place-items: center; padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); text-align: center; }
+      .booking-box > div { max-width: 430px; }
+      .calendar-icon { display: grid; width: 55px; height: 55px; place-items: center; margin: 0 auto 20px; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--accent-ink); }
+      .calendar-icon svg { width: 23px; height: 23px; }
+      .booking-box h3 { margin: 0; font: italic 800 29px "Barlow Condensed", sans-serif; text-transform: uppercase; }
+      .booking-box p { margin: 10px 0 23px; color: var(--fg-2); font-size: 15px; }
+      .booking-box iframe { width: 100%; min-height: 620px; border: 0; border-radius: var(--radius); background: var(--card); }
+
+      .contact-section { padding-block: 88px; }
+      .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; }
+      .contact-details { display: grid; gap: 17px; margin-top: 30px; }
+      .contact-detail { display: flex; align-items: flex-start; gap: 12px; color: var(--fg-2); text-decoration: none; }
+      .contact-detail:hover { color: var(--fg); }
+      .contact-detail svg { width: 19px; height: 19px; flex: 0 0 19px; margin-top: 3px; color: var(--accent-ink); }
+      .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .field { display: grid; gap: 7px; }
+      .field.full { grid-column: 1 / -1; }
+      .field label { color: var(--fg-3); font: 500 10px "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+      .field input, .field select, .field textarea {
+        width: 100%;
+        min-height: 50px;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: var(--card);
+        color: var(--fg);
+      }
+      .field input::placeholder, .field textarea::placeholder { color: var(--fg-3); }
+      .field textarea { min-height: 125px; resize: vertical; }
+      .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+      .form-actions button { border: 0; }
+      .form-email { color: var(--fg-2); font-size: 14px; text-underline-offset: 4px; }
+      .form-status { min-height: 24px; margin: 0; color: var(--fg-2); font-size: 14px; }
+
+      .instagram { padding: 25px 0; border-block: 1px solid var(--line); background: var(--bg-raised); }
+      .instagram-link { display: flex; align-items: center; justify-content: space-between; gap: 20px; text-decoration: none; }
+      .instagram-link:hover strong { color: var(--accent-ink); }
+      .instagram-label { color: var(--fg-3); font: 400 10px "JetBrains Mono", monospace; letter-spacing: .13em; text-transform: uppercase; }
+      .instagram-link strong { display: block; margin-top: 2px; font-size: 20px; transition: color .15s ease; }
+      .instagram-link > span:last-child { color: var(--fg-2); font-size: 14px; }
+
+      .site-footer { padding: 48px 0 28px; }
+      .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 32px; }
+      .footer-brand { display: flex; align-items: center; gap: 15px; color: var(--fg-3); font: 400 11px "JetBrains Mono", monospace; letter-spacing: .09em; }
+      .footer-brand img { width: 120px; }
+      .footer-links { display: flex; flex-wrap: wrap; gap: 21px; }
+      .footer-links a { color: var(--fg-3); font-size: 14px; text-decoration: none; }
+      .footer-links a:hover { color: var(--fg); }
+      .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 17px; border-top: 1px solid var(--line); color: var(--fg-3); font: 400 10px "JetBrains Mono", monospace; letter-spacing: .07em; }
+
+      @media (min-width: 901px) and (max-width: 1100px) {
+        .hero-grid { gap: 28px; }
+        h1 { font-size: clamp(60px, 7vw, 76px); }
+      }
+      @media (max-width: 900px) {
+        .wrap { width: min(var(--content), calc(100% - 40px)); }
+        .nav { min-height: 84px; }
+        .brand { width: 150px; }
+        .nav-actions { gap: 13px; }
+        .hero { padding-block: 58px 70px; }
+        .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+        .hero-photo-wrap { width: min(100%, 560px); margin-inline: auto; }
+        h1 { font-size: clamp(58px, 9vw, 84px); }
+        .hero-copy > p:not(.hero-kicker) { font-size: 18px; }
+        .stats-grid { grid-template-columns: repeat(3, 1fr); }
+        .stat { min-height: 92px; border-bottom: 1px solid var(--line); }
+        .stat:nth-child(3) { border-right: 0; }
+        .stat:nth-child(n + 4) { border-bottom: 0; }
+        .stat:nth-child(4) { padding-left: 0; }
+        .contact-grid { gap: 38px; }
+      }
+      @media (max-width: 640px) {
+        body { font-size: 16px; }
+        .wrap { width: calc(100% - 36px); }
+        .nav { min-height: 75px; gap: 10px; }
+        .brand { width: 112px; }
+        .nav-actions { gap: 9px; }
+        .theme-control { gap: 0; padding: 3px; }
+        .theme-option { width: 34px; height: 34px; }
+        .theme-option svg { width: 17px; height: 17px; }
+        .nav .button { min-height: 42px; padding: 9px 12px; font-size: 13px; }
+        .hero { padding-block: 48px 58px; }
+        .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+        .hero-copy { gap: 22px; }
+        .hero-kicker { font-size: 10px; letter-spacing: .11em; }
+        h1 { font-size: clamp(44px, 14.5vw, 76px); }
+        .hero-copy > p:not(.hero-kicker) { max-width: 500px; font-size: 17px; }
+        .hero-photo-wrap { width: min(100%, 470px); margin-inline: auto; }
+        .hero-photo { aspect-ratio: 5 / 4; }
+        .hero-photo img { object-position: 50% 34%; }
+        .speed-lines { top: 45px; }
+        .speed-lines span { width: 70px; height: 9px; }
+        .speed-lines span:nth-child(2) { width: 54px; }
+        .speed-lines span:nth-child(3) { width: 64px; }
+        .speed-lines span:nth-child(4) { width: 43px; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        .stat { min-height: 82px; padding: 14px; border-right: 1px solid var(--line); }
+        .stat:first-child { padding-left: 14px; }
+        .stat:nth-child(3) { border-right: 1px solid var(--line); }
+        .stat:nth-child(even) { border-right: 0; }
+        .stat:nth-child(n + 4) { border-bottom: 1px solid var(--line); }
+        .stat:nth-child(n + 5) { border-bottom: 0; }
+        .stat:nth-child(4) { padding-left: 14px; }
+        .stat strong { font-size: 21px; }
+        .section { padding-block: 66px; }
+        .section-title { font-size: clamp(42px, 12vw, 62px); }
+        .section-intro { font-size: 16px; }
+        .coach-grid, .results-grid, .pricing-grid { grid-template-columns: 1fr; }
+        .coach-card { min-height: 0; padding: 22px; }
+        .coach-card h3 { margin-top: 20px; }
+        .about-grid { grid-template-columns: 1fr; gap: 30px; padding-block: 55px; }
+        .about-mark { min-height: 210px; }
+        .results-grid { gap: 12px; }
+        .steps { grid-template-columns: 1fr; }
+        .step { min-height: 0; padding: 22px; border-right: 0; border-bottom: 1px solid var(--line); }
+        .step:last-child { border-bottom: 0; }
+        .step h3 { margin-top: 18px; }
+        .review-layout { grid-template-columns: 1fr; gap: 26px; }
+        .review-section { padding-block: 62px; }
+        .pricing-grid { gap: 12px; }
+        .price-card { padding: 23px; }
+        .online-price { grid-template-columns: 1fr; gap: 14px; }
+        .online-price .button { justify-self: stretch; }
+        .booking-section { padding-block: 64px; }
+        .booking-grid { grid-template-columns: 1fr; gap: 30px; }
+        .booking-box { min-height: 310px; }
+        .booking-box iframe { min-height: 560px; }
+        .contact-grid { grid-template-columns: 1fr; gap: 35px; }
+        .contact-form { grid-template-columns: 1fr; }
+        .field.full { grid-column: auto; }
+        .footer-top { align-items: flex-start; flex-direction: column; }
+        .footer-links { gap: 13px 18px; }
+        .footer-bottom { flex-direction: column; gap: 7px; }
+      }
+      @media (max-width: 360px) {
+        .brand { width: 76px; }
+        .nav-actions { gap: 6px; }
+        .theme-option { width: 30px; height: 30px; }
+        .nav .button { padding: 8px 7px; font-size: 11px; white-space: nowrap; }
+        .hero-kicker { gap: 8px; font-size: 9px; letter-spacing: .03em; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      }
+    </style>
+  </head>
+  <body data-booking-link="">
+    <header class="site-header">
+      <nav class="nav wrap" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="One Motion Coaching home">
+          <img class="logo-dark" src="images/om-symbol.svg" alt="">
+          <img class="logo-light" src="images/om-symbol-light.svg" alt="">
+        </a>
+        <div class="nav-actions">
+          <div class="theme-control" role="group" aria-label="Colour theme">
+            <button class="theme-option" type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+            </button>
+            <button class="theme-option" type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+            </button>
+            <button class="theme-option" type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 15.4A8.5 8.5 0 0 1 8.6 3.7 8.5 8.5 0 1 0 20.3 15.4Z"></path></svg>
+            </button>
+          </div>
+          <a class="button button-small" href="#book">Free consult</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="hero-kicker">1-1 Personal Training · Stratford &amp; Online</p>
+            <h1>Stronger.<br>Fitter.<br><span class="accent">More confident.</span></h1>
+            <p>Structured, personalised coaching with Arber. 8+ years helping people build muscle, lose fat and get strong for real life. Train with me at Gymbox Westfield Stratford, or anywhere with online coaching.</p>
+            <div class="hero-buttons">
+              <a class="button" href="#book">Book a free consult call</a>
+              <a class="button button-quiet" href="https://wa.me/447465444761?text=Hi%20Arber%2C%20I%27m%20interested%20in%20personal%20training." target="_blank" rel="noreferrer">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5Z"></path></svg>
+                Message on WhatsApp
+              </a>
+            </div>
+          </div>
+          <div class="hero-photo-wrap">
+            <div class="speed-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="hero-photo"><img src="images/arber.jpg" alt="Arber, personal trainer at One Motion Coaching" fetchpriority="high"></div>
+            <div class="coach-badge"><span>Your coach</span><span>Arber · Level 2 &amp; 3 PT</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Coaching experience">
+        <div class="wrap stats-grid">
+          <div class="stat"><strong>8+ years</strong><span>coaching experience</span></div>
+          <div class="stat"><strong>Level 2 &amp; 3</strong><span>qualified personal trainer</span></div>
+          <div class="stat"><strong>4 years</strong><span>my longest-standing client</span></div>
+          <div class="stat"><strong>120+</strong><span>clients coached</span></div>
+          <div class="stat"><strong>In-person</strong><span>Gymbox Westfield Stratford</span></div>
+          <div class="stat"><strong>Online</strong><span>coaching via the Kahunas app</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="coaching">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">01 · What I coach</p>
+            <h2 class="section-title">Training built around your goal</h2>
+            <p class="section-intro">Every programme is structured and personalised. No generic plans, just the work that moves you forward.</p>
+          </div>
+          <div class="coach-grid">
+            <article class="coach-card">
+              <span class="card-number">/ 01</span>
+              <h3>Build muscle</h3>
+              <p>Hypertrophy training with smart exercise selection, progressive overload and the right volume for you, so you see and feel the change.</p>
+            </article>
+            <article class="coach-card">
+              <span class="card-number">/ 02</span>
+              <h3>Lose fat</h3>
+              <p>Sustainable fat loss that keeps your strength and muscle, with training and habits that fit your life, not a crash diet.</p>
+            </article>
+            <article class="coach-card">
+              <span class="card-number">/ 03</span>
+              <h3>Real-world strength</h3>
+              <p>Get stronger, move better and feel more capable in everyday life, from lifting heavier to keeping up with everything outside the gym.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-band" id="about">
+        <div class="wrap about-grid">
+          <div class="about-mark" aria-hidden="true">
+            <img class="logo-dark" src="images/om-logo.svg" alt="">
+            <img class="logo-light" src="images/om-logo-light.svg" alt="">
+          </div>
+          <div class="about-copy">
+            <p class="eyebrow">02 · About</p>
+            <h2 class="section-title">Hi, I’m Arber.</h2>
+            <p class="section-intro">I’m a personal trainer with over 8 years of experience, specialising in hypertrophy training, fat loss and building real-world strength.</p>
+            <p>I work with a diverse range of clients, and my focus is always the same: helping you feel stronger, fitter and more confident in your day-to-day life through structured, personalised training.</p>
+            <p>I’m Level 2 and Level 3 qualified, I coach 1-1 at Gymbox Westfield Stratford, and I run online coaching through the Kahunas app for clients who train on their own schedule.</p>
+            <div class="about-tags"><span class="tag">Level 2 &amp; 3 qualified</span><span class="tag">8+ years coaching</span><span class="tag">Stratford &amp; online</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="transformations">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">03 · Results</p>
+            <h2 class="section-title">The work, shown.</h2>
+            <p class="section-intro">Real clients, real timelines. Every photo shared with permission.</p>
+          </div>
+          <div class="results-grid">
+            <article class="result-card">
+              <div class="before-after">
+                <div class="result-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>Before photo</span></div>
+                <div class="result-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>After photo</span></div>
+              </div>
+              <div class="result-caption"><strong>Client story</strong><span>12 WEEKS · FAT LOSS</span></div>
+            </article>
+            <article class="result-card">
+              <div class="before-after">
+                <div class="result-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>Before photo</span></div>
+                <div class="result-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>After photo</span></div>
+              </div>
+              <div class="result-caption"><strong>Client story</strong><span>12 WEEKS · BUILD MUSCLE</span></div>
+            </article>
+            <article class="result-card">
+              <div class="before-after">
+                <div class="result-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>Before photo</span></div>
+                <div class="result-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path></svg><span>After photo</span></div>
+              </div>
+              <div class="result-caption"><strong>Client story</strong><span>12 WEEKS · STRENGTH</span></div>
+            </article>
+          </div>
+          <p class="permission-note">Client names and progress photos will be added with their permission.</p>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">04 · How it works</p>
+            <h2 class="section-title">Three steps to your first session</h2>
+          </div>
+          <div class="steps">
+            <article class="step"><span class="step-number">01</span><h3>Free consult call</h3><p>15 minutes, no pressure. We talk through your goals, training history and schedule, and whether in-person or online suits you best.</p></article>
+            <article class="step"><span class="step-number">02</span><h3>Choose your package</h3><p>Pick 1, 2 or 3 sessions a week, or go fully online. Packages are monthly and paid upfront, so your slots are locked in.</p></article>
+            <article class="step"><span class="step-number">03</span><h3>Train with structure</h3><p>Personalised sessions that progress week to week, with a plan built around the goal we set together.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="review-section" id="results">
+        <div class="wrap review-layout">
+          <div>
+            <p class="eyebrow">05 · Reviews</p>
+            <h2 class="section-title">Real people.<br>Real results.</h2>
+            <p class="section-intro">In their words: what it’s like to train with One Motion.</p>
+          </div>
+          <div>
+            <article class="review-card">
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <blockquote>Client testimonials will be shared here as they’re approved.</blockquote>
+              <p>One Motion client · Review coming soon</p>
+            </article>
+            <p class="review-footnote">No review has been published without the client’s permission.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pricing">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">06 · Pricing</p>
+            <h2 class="section-title">1-1 personal training</h2>
+            <p class="section-intro">Monthly packages, paid upfront. The more you train, the less each session costs.</p>
+          </div>
+          <div class="pricing-grid">
+            <article class="price-card">
+              <span class="price-label">1 session / week</span>
+              <h3>Build consistency</h3>
+              <p class="price">£70 <small>per session</small></p>
+              <p class="per-month">£280 / month</p>
+              <p>A focused weekly session to learn the lifts, build consistency and keep progressing.</p>
+              <a class="button button-quiet" href="#book">Start with a free consult</a>
+            </article>
+            <article class="price-card">
+              <span class="price-label">2 sessions / week</span>
+              <h3>Steady progress</h3>
+              <p class="price">£67.50 <small>per session</small></p>
+              <p class="per-month">£540 / month</p>
+              <p>The sweet spot for steady progress on muscle, fat loss or strength.</p>
+              <a class="button button-quiet" href="#book">Start with a free consult</a>
+            </article>
+            <article class="price-card featured">
+              <span class="best-value">Best value</span>
+              <span class="price-label">3 sessions / week</span>
+              <h3>Full accountability</h3>
+              <p class="price">£65 <small>per session</small></p>
+              <p class="per-month">£780 / month</p>
+              <p>Maximum coaching and accountability for the fastest results.</p>
+              <a class="button" href="#book">Start with a free consult</a>
+            </article>
+          </div>
+          <article class="online-price">
+            <div><h3>Online coaching · Kahunas app</h3><p class="price">£150 <small>per month</small></p></div>
+            <p>Weekly check-in videos to watch wherever you are, plus all your workout and nutrition plans posted straight to your Kahunas coaching app.</p>
+            <a class="button button-quiet" href="#contact">Ask about online coaching</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="booking-section" id="book">
+        <div class="wrap booking-grid">
+          <div>
+            <p class="eyebrow">07 · Book</p>
+            <h2 class="section-title">Start with a free consult.</h2>
+            <p class="section-intro">A 15-minute, no-pressure call to talk through your goals and find the right package. Pick a time that suits you.</p>
+            <ul class="booking-points">
+              <li>Your goals and training history</li>
+              <li>In-person at Gymbox Stratford or online</li>
+              <li>Which package fits your schedule</li>
+            </ul>
+            <a class="contact-detail" href="https://wa.me/447465444761?text=Hi%20Arber%2C%20I%27d%20like%20to%20book%20a%20free%20consult." target="_blank" rel="noreferrer">Prefer WhatsApp? Message me</a>
+          </div>
+          <div class="booking-box" id="booking-box">
+            <div>
+              <span class="calendar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path><path d="m9 15 2 2 4-4"></path></svg></span>
+              <h3>Booking calendar</h3>
+              <p>Add your Calendly or Cal.com booking URL to the <code>data-booking-link</code> attribute on the page to show your live calendar here. Until then, message Arber to arrange a time.</p>
+              <a class="button" href="https://wa.me/447465444761?text=Hi%20Arber%2C%20I%27d%20like%20to%20book%20a%20free%20consult." target="_blank" rel="noreferrer">Arrange a free consult</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div class="wrap contact-grid">
+          <div>
+            <p class="eyebrow">08 · Contact</p>
+            <h2 class="section-title">Got a question first?</h2>
+            <p class="section-intro">Tell me a bit about you and what you’re after. I reply to every message personally, usually the same day.</p>
+            <div class="contact-details">
+              <a class="contact-detail" href="https://wa.me/447465444761" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5Z"></path></svg>WhatsApp · 07465 444761</a>
+              <a class="contact-detail" href="mailto:1motioncoaching@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>1motioncoaching@gmail.com</a>
+              <span class="contact-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>Gymbox Westfield Stratford, London</span>
+            </div>
+          </div>
+          <form class="contact-form" id="contact-form">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" autocomplete="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="reply">Phone or email</label>
+              <input id="reply" name="reply" autocomplete="email" placeholder="How can I reach you?" required>
+            </div>
+            <div class="field">
+              <label for="goal">Main goal</label>
+              <select id="goal" name="goal" required>
+                <option value="" selected disabled>Select a goal</option>
+                <option>Build muscle</option>
+                <option>Lose fat</option>
+                <option>Real-world strength</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="training">How you’d train</label>
+              <select id="training" name="training" required>
+                <option value="" selected disabled>Select an option</option>
+                <option>In-person at Stratford</option>
+                <option>Online coaching</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="What would you like help with?" required></textarea>
+            </div>
+            <div class="field full">
+              <div class="form-actions">
+                <button class="button" type="submit">Send via WhatsApp</button>
+                <button class="form-email" type="button" id="email-form">or send by email</button>
+              </div>
+              <p class="form-status" id="form-status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="instagram">
+        <div class="wrap">
+          <a class="instagram-link" href="https://instagram.com/arberpt" target="_blank" rel="noreferrer">
+            <span><span class="instagram-label">On Instagram</span><strong>@arberpt</strong></span>
+            <span>Follow for training tips ↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <a class="footer-brand" href="#top" aria-label="One Motion Coaching home">
+            <img class="logo-dark" src="images/om-logo.svg" alt="">
+            <img class="logo-light" src="images/om-logo-light.svg" alt="">
+            <span>Personal training · Stratford &amp; online</span>
+          </a>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#about">About</a><a href="#coaching">Coaching</a><a href="#transformations">Results</a><a href="#book">Book</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
+          </nav>
+        </div>
+        <div class="footer-bottom"><span>© <span id="year">2026</span> One Motion Coaching</span><a href="https://instagram.com/arberpt" target="_blank" rel="noreferrer">@arberpt</a></div>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const systemTheme = window.matchMedia("(prefers-color-scheme: light)");
+        const themeButtons = [...document.querySelectorAll("[data-theme-choice]")];
+        const savedTheme = localStorage.getItem("om-theme");
+        let themeChoice = ["system", "light", "dark"].includes(savedTheme) ? savedTheme : "system";
+
+        function applyTheme() {
+          const resolvedTheme = themeChoice === "system" ? (systemTheme.matches ? "light" : "dark") : themeChoice;
+          root.dataset.theme = resolvedTheme;
+          document.querySelector('meta[name="theme-color"]').content = resolvedTheme === "light" ? "#d9d6ce" : "#0a0a0a";
+          themeButtons.forEach((button) => {
+            button.setAttribute("aria-pressed", String(button.dataset.themeChoice === themeChoice));
+          });
+        }
+
+        themeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            themeChoice = button.dataset.themeChoice;
+            localStorage.setItem("om-theme", themeChoice);
+            applyTheme();
+          });
+        });
+        systemTheme.addEventListener("change", () => {
+          if (themeChoice === "system") applyTheme();
+        });
+        applyTheme();
+
+        document.getElementById("year").textContent = String(new Date().getFullYear());
+
+        const bookingLink = document.body.dataset.bookingLink.trim();
+        if (bookingLink) {
+          const parsedUrl = new URL(bookingLink, window.location.href);
+          if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") {
+            throw new TypeError("The booking link must use http or https.");
+          }
+          const box = document.getElementById("booking-box");
+          const iframe = document.createElement("iframe");
+          iframe.src = parsedUrl.href;
+          iframe.title = "Book a free personal training consultation";
+          iframe.loading = "lazy";
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+          box.replaceChildren(iframe);
+        }
+
+        const form = document.getElementById("contact-form");
+        const status = document.getElementById("form-status");
+        const email = "1motioncoaching@gmail.com";
+
+        function composeMessage() {
+          const fields = new FormData(form);
+          return [
+            `Hi Arber, I’m ${fields.get("name")}.`,
+            `You can reach me at: ${fields.get("reply")}.`,
+            `My main goal: ${fields.get("goal")}.`,
+            `I’m interested in: ${fields.get("training")}.`,
+            "",
+            String(fields.get("message")).trim()
+          ].join("\n");
+        }
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (!form.reportValidity()) return;
+          const whatsappUrl = `https://wa.me/447465444761?text=${encodeURIComponent(composeMessage())}`;
+          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+          status.textContent = "Your message is ready in WhatsApp. Please send it there to finish.";
+        });
+
+        document.getElementById("email-form").addEventListener("click", () => {
+          if (!form.reportValidity()) return;
+          const subject = encodeURIComponent("Personal training enquiry");
+          const body = encodeURIComponent(composeMessage());
+          window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+          status.textContent = "Your email draft is ready. Please send it to finish.";
+        });
+      })();
+    </script>
+  </body>
+</html>
