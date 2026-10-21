@@ -222,13 +222,58 @@
       .coach-badge span:first-child { color: var(--fg-3); font: 400 11px "JetBrains Mono", monospace; letter-spacing: .12em; }
       .coach-badge span:last-child { font-size: 16px; font-weight: 700; }
 
-      .stats { border-block: 1px solid var(--line); background: var(--bg-raised); }
-      .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
-      .stat { min-height: 112px; display: flex; flex-direction: column; justify-content: center; padding: 18px; border-right: 1px solid var(--line); }
-      .stat:first-child { padding-left: 0; }
-      .stat:last-child { border-right: 0; }
+      .stats { padding-block: 24px; border-block: 1px solid var(--line); background: var(--bg-raised); }
+      .stats-carousel { --stats-gap: 14px; --stats-visible: 3; overflow: hidden; touch-action: pan-y; }
+      .stats-track {
+        display: grid;
+        position: relative;
+        width: calc(200% + var(--stats-gap));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: var(--stats-gap);
+        transition: transform .38s cubic-bezier(.2, .7, .2, 1);
+        will-change: transform;
+      }
+      .stat {
+        min-height: 110px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 17px 19px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--card);
+      }
       .stat strong { color: var(--accent-ink); font: italic 800 24px/1 "Barlow Condensed", sans-serif; text-transform: uppercase; }
       .stat span { margin-top: 8px; color: var(--fg-3); font-size: 13px; line-height: 1.3; }
+      .stats-controls { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 18px; }
+      .stats-arrow {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        background: transparent;
+        color: var(--fg);
+        cursor: pointer;
+        transition: border-color .16s ease, background .16s ease, color .16s ease;
+      }
+      .stats-arrow:hover:not(:disabled) { border-color: var(--accent-ink); background: var(--card); color: var(--accent-ink); }
+      .stats-arrow:disabled { opacity: .4; cursor: default; }
+      .stats-arrow svg { width: 18px; height: 18px; }
+      .stats-dots { display: flex; align-items: center; justify-content: center; gap: 8px; }
+      .stats-dot {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: var(--line-strong);
+        cursor: pointer;
+        transition: width .18s ease, background .18s ease;
+      }
+      .stats-dot[aria-current="true"] { width: 21px; border-radius: 5px; background: var(--accent-ink); }
 
       .section { padding: 88px 0; }
       .section-heading { margin-bottom: 34px; }
@@ -370,11 +415,8 @@
         .hero-photo-wrap { width: min(100%, 560px); margin-inline: auto; }
         h1 { font-size: clamp(58px, 9vw, 84px); }
         .hero-copy > p:not(.hero-kicker) { font-size: 18px; }
-        .stats-grid { grid-template-columns: repeat(3, 1fr); }
-        .stat { min-height: 92px; border-bottom: 1px solid var(--line); }
-        .stat:nth-child(3) { border-right: 0; }
-        .stat:nth-child(n + 4) { border-bottom: 0; }
-        .stat:nth-child(4) { padding-left: 0; }
+        .stats-carousel { --stats-visible: 2; }
+        .stats-track { width: calc(300% + var(--stats-gap) + var(--stats-gap)); }
         .contact-grid { gap: 38px; }
       }
       @media (max-width: 640px) {
@@ -401,14 +443,9 @@
         .speed-lines span:nth-child(2) { width: 54px; }
         .speed-lines span:nth-child(3) { width: 64px; }
         .speed-lines span:nth-child(4) { width: 43px; }
-        .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        .stat { min-height: 82px; padding: 14px; border-right: 1px solid var(--line); }
-        .stat:first-child { padding-left: 14px; }
-        .stat:nth-child(3) { border-right: 1px solid var(--line); }
-        .stat:nth-child(even) { border-right: 0; }
-        .stat:nth-child(n + 4) { border-bottom: 1px solid var(--line); }
-        .stat:nth-child(n + 5) { border-bottom: 0; }
-        .stat:nth-child(4) { padding-left: 14px; }
+        .stats-carousel { --stats-visible: 1; }
+        .stats-track { width: calc(600% + var(--stats-gap) + var(--stats-gap) + var(--stats-gap) + var(--stats-gap) + var(--stats-gap)); }
+        .stat { min-height: 86px; padding: 14px 16px; }
         .stat strong { font-size: 21px; }
         .section { padding-block: 66px; }
         .section-title { font-size: clamp(42px, 12vw, 62px); }
@@ -500,13 +537,26 @@
       </section>
 
       <section class="stats" aria-label="Coaching experience">
-        <div class="wrap stats-grid">
-          <div class="stat"><strong>8+ years</strong><span>coaching experience</span></div>
-          <div class="stat"><strong>Level 2 &amp; 3</strong><span>qualified personal trainer</span></div>
-          <div class="stat"><strong>4 years</strong><span>my longest-standing client</span></div>
-          <div class="stat"><strong>120+</strong><span>clients coached</span></div>
-          <div class="stat"><strong>In-person</strong><span>Gymbox Westfield Stratford</span></div>
-          <div class="stat"><strong>Online</strong><span>coaching via the Kahunas app</span></div>
+        <div class="wrap">
+          <div class="stats-carousel" role="region" aria-roledescription="carousel" aria-label="One Motion coaching facts" tabindex="0">
+            <div class="stats-track" aria-live="polite">
+              <article class="stat" role="group" aria-roledescription="slide" aria-label="1 of 6"><strong>8+ years</strong><span>coaching experience</span></article>
+              <article class="stat" role="group" aria-roledescription="slide" aria-label="2 of 6"><strong>Level 2 &amp; 3</strong><span>qualified personal trainer</span></article>
+              <article class="stat" role="group" aria-roledescription="slide" aria-label="3 of 6"><strong>4 years</strong><span>my longest-standing client</span></article>
+              <article class="stat" role="group" aria-roledescription="slide" aria-label="4 of 6"><strong>120+</strong><span>clients coached</span></article>
+              <article class="stat" role="group" aria-roledescription="slide" aria-label="5 of 6"><strong>In-person</strong><span>Gymbox Westfield Stratford</span></article>
+              <article class="stat" role="group" aria-roledescription="slide" aria-label="6 of 6"><strong>Online</strong><span>coaching via the Kahunas app</span></article>
+            </div>
+          </div>
+          <div class="stats-controls">
+            <button class="stats-arrow" type="button" data-stats-previous aria-label="Previous coaching fact" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+            </button>
+            <div class="stats-dots" role="group" aria-label="Choose a coaching fact"></div>
+            <button class="stats-arrow" type="button" data-stats-next aria-label="Next coaching fact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -795,6 +845,90 @@
           if (themeChoice === "system") applyTheme();
         });
         applyTheme();
+
+        const statsCarousel = document.querySelector(".stats-carousel");
+        const statsTrack = statsCarousel.querySelector(".stats-track");
+        const statsSlides = [...statsTrack.querySelectorAll(".stat")];
+        const statsDots = statsCarousel.parentElement.querySelector(".stats-dots");
+        const statsPrevious = statsCarousel.parentElement.querySelector("[data-stats-previous]");
+        const statsNext = statsCarousel.parentElement.querySelector("[data-stats-next]");
+        let statsIndex = 0;
+        let swipeStart = null;
+
+        function updateStatsCarousel() {
+          const visibleCount = Number.parseInt(getComputedStyle(statsCarousel).getPropertyValue("--stats-visible"), 10);
+          const maxIndex = Math.max(0, statsSlides.length - visibleCount);
+          statsIndex = Math.min(statsIndex, maxIndex);
+          statsTrack.style.transform = `translateX(-${statsSlides[statsIndex].offsetLeft}px)`;
+          statsSlides.forEach((slide, index) => {
+            slide.setAttribute("aria-hidden", String(index < statsIndex || index >= statsIndex + visibleCount));
+          });
+          statsPrevious.disabled = statsIndex === 0;
+          statsNext.disabled = statsIndex === maxIndex;
+
+          const dotCount = maxIndex + 1;
+          while (statsDots.children.length > dotCount) statsDots.lastElementChild.remove();
+          while (statsDots.children.length < dotCount) {
+            const dot = document.createElement("button");
+            dot.className = "stats-dot";
+            dot.type = "button";
+            statsDots.append(dot);
+          }
+          [...statsDots.children].forEach((dot, index) => {
+            dot.setAttribute("aria-label", `Show coaching fact ${index + 1}`);
+            dot.setAttribute("aria-current", String(index === statsIndex));
+            dot.dataset.statsIndex = String(index);
+          });
+        }
+
+        statsDots.addEventListener("click", (event) => {
+          const dot = event.target.closest("[data-stats-index]");
+          if (!dot) return;
+          statsIndex = Number.parseInt(dot.dataset.statsIndex, 10);
+          updateStatsCarousel();
+        });
+        statsPrevious.addEventListener("click", () => {
+          statsIndex = Math.max(0, statsIndex - 1);
+          updateStatsCarousel();
+        });
+        statsNext.addEventListener("click", () => {
+          statsIndex = Math.min(statsSlides.length - Number.parseInt(getComputedStyle(statsCarousel).getPropertyValue("--stats-visible"), 10), statsIndex + 1);
+          updateStatsCarousel();
+        });
+        statsCarousel.addEventListener("keydown", (event) => {
+          if (event.target !== statsCarousel) return;
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            statsPrevious.click();
+          } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            statsNext.click();
+          } else if (event.key === "Home") {
+            event.preventDefault();
+            statsIndex = 0;
+            updateStatsCarousel();
+          } else if (event.key === "End") {
+            event.preventDefault();
+            statsIndex = statsSlides.length - Number.parseInt(getComputedStyle(statsCarousel).getPropertyValue("--stats-visible"), 10);
+            updateStatsCarousel();
+          }
+        });
+        statsCarousel.addEventListener("pointerdown", (event) => {
+          if (event.pointerType === "touch") swipeStart = event.clientX;
+        });
+        statsCarousel.addEventListener("pointerup", (event) => {
+          if (swipeStart === null) return;
+          const swipeDistance = event.clientX - swipeStart;
+          swipeStart = null;
+          if (Math.abs(swipeDistance) < 45) return;
+          if (swipeDistance > 0) statsPrevious.click();
+          else statsNext.click();
+        });
+        statsCarousel.addEventListener("pointercancel", () => {
+          swipeStart = null;
+        });
+        window.addEventListener("resize", updateStatsCarousel);
+        updateStatsCarousel();
 
         document.getElementById("year").textContent = String(new Date().getFullYear());
 
