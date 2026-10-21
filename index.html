@@ -262,8 +262,6 @@
       .stats-arrow:hover:not(:disabled) { border-color: var(--accent-ink); background: var(--card); color: var(--accent-ink); }
       .stats-arrow:disabled { opacity: .4; cursor: default; }
       .stats-arrow svg { width: 18px; height: 18px; }
-      .stats-autoplay[aria-pressed="true"] .icon-play,
-      .stats-autoplay[aria-pressed="false"] .icon-pause { display: none; }
       .stats-dots { display: flex; align-items: center; justify-content: center; gap: 8px; }
       .stats-dot {
         width: 8px;
@@ -551,10 +549,6 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
             </button>
             <div class="stats-dots" role="group" aria-label="Choose a coaching fact"></div>
-            <button class="stats-arrow stats-autoplay" type="button" data-stats-autoplay aria-label="Pause automatic carousel" aria-pressed="true">
-              <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"></path></svg>
-              <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5 12 7-12 7z"></path></svg>
-            </button>
             <button class="stats-arrow" type="button" data-stats-next aria-label="Next coaching fact">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
             </button>
@@ -850,21 +844,17 @@
         const statsDots = statsCarousel.parentElement.querySelector(".stats-dots");
         const statsPrevious = statsCarousel.parentElement.querySelector("[data-stats-previous]");
         const statsNext = statsCarousel.parentElement.querySelector("[data-stats-next]");
-        const statsAutoplay = statsCarousel.parentElement.querySelector("[data-stats-autoplay]");
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         let statsIndex = 0;
         let swipeStart = null;
-        let autoplayRequested = !reducedMotion.matches;
         let pointerInsideCarousel = false;
         let focusInsideCarousel = false;
         let carouselInView = true;
         let autoplayTimer;
 
         function updateAutoplay() {
-          const canPlay = autoplayRequested && !document.hidden && !pointerInsideCarousel && !focusInsideCarousel && carouselInView;
+          const canPlay = !reducedMotion.matches && !document.hidden && !pointerInsideCarousel && !focusInsideCarousel && carouselInView;
           window.clearInterval(autoplayTimer);
-          statsAutoplay.setAttribute("aria-pressed", String(autoplayRequested));
-          statsAutoplay.setAttribute("aria-label", autoplayRequested ? "Pause automatic carousel" : "Play automatic carousel");
           if (canPlay) {
             autoplayTimer = window.setInterval(() => {
               const visibleCount = Number.parseInt(getComputedStyle(statsCarousel).getPropertyValue("--stats-visible"), 10);
@@ -873,11 +863,6 @@
               updateStatsCarousel();
             }, 5000);
           }
-        }
-
-        function stopAutoplayForInteraction() {
-          autoplayRequested = false;
-          updateAutoplay();
         }
 
         function updateStatsCarousel() {
@@ -909,23 +894,16 @@
         statsDots.addEventListener("click", (event) => {
           const dot = event.target.closest("[data-stats-index]");
           if (!dot) return;
-          stopAutoplayForInteraction();
           statsIndex = Number.parseInt(dot.dataset.statsIndex, 10);
           updateStatsCarousel();
         });
         statsPrevious.addEventListener("click", () => {
-          stopAutoplayForInteraction();
           statsIndex = Math.max(0, statsIndex - 1);
           updateStatsCarousel();
         });
         statsNext.addEventListener("click", () => {
-          stopAutoplayForInteraction();
           statsIndex = Math.min(statsSlides.length - Number.parseInt(getComputedStyle(statsCarousel).getPropertyValue("--stats-visible"), 10), statsIndex + 1);
           updateStatsCarousel();
-        });
-        statsAutoplay.addEventListener("click", () => {
-          autoplayRequested = !autoplayRequested;
-          updateAutoplay();
         });
         statsCarousel.parentElement.addEventListener("pointerenter", () => {
           pointerInsideCarousel = true;
@@ -945,10 +923,7 @@
           updateAutoplay();
         });
         document.addEventListener("visibilitychange", updateAutoplay);
-        reducedMotion.addEventListener("change", (event) => {
-          if (event.matches) autoplayRequested = false;
-          updateAutoplay();
-        });
+        reducedMotion.addEventListener("change", updateAutoplay);
         const carouselObserver = new IntersectionObserver(([entry]) => {
           carouselInView = entry.isIntersecting && entry.intersectionRatio >= 0.3;
           updateAutoplay();
@@ -958,20 +933,16 @@
           if (event.target !== statsCarousel) return;
           if (event.key === "ArrowLeft") {
             event.preventDefault();
-            stopAutoplayForInteraction();
             statsPrevious.click();
           } else if (event.key === "ArrowRight") {
             event.preventDefault();
-            stopAutoplayForInteraction();
             statsNext.click();
           } else if (event.key === "Home") {
             event.preventDefault();
-            stopAutoplayForInteraction();
             statsIndex = 0;
             updateStatsCarousel();
           } else if (event.key === "End") {
             event.preventDefault();
-            stopAutoplayForInteraction();
             statsIndex = statsSlides.length - Number.parseInt(getComputedStyle(statsCarousel).getPropertyValue("--stats-visible"), 10);
             updateStatsCarousel();
           }
