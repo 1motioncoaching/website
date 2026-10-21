@@ -292,12 +292,7 @@
       .coach-card p { max-width: 340px; margin: 0; color: var(--fg-2); font-size: 15px; }
 
       .about-band { padding: 0; background: var(--card); }
-      .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(40px, 8vw, 110px); padding-block: 76px; }
-      .about-mark { position: relative; display: grid; min-height: 300px; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
-      .about-mark::before, .about-mark::after { position: absolute; width: 75%; height: 12px; transform: skewX(-17deg); background: var(--fg); content: ""; }
-      .about-mark::before { top: 29%; left: -9%; }
-      .about-mark::after { right: -12%; bottom: 29%; background: var(--accent); }
-      .about-mark img { position: relative; z-index: 1; width: min(60%, 300px); }
+      .about-grid { padding-block: 76px; }
       .about-copy p { max-width: 650px; color: var(--fg-2); }
       .about-copy .section-intro { color: var(--fg); font-size: 20px; }
       .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
@@ -453,8 +448,7 @@
         .coach-grid, .results-grid, .pricing-grid { grid-template-columns: 1fr; }
         .coach-card { min-height: 0; padding: 22px; }
         .coach-card h3 { margin-top: 20px; }
-        .about-grid { grid-template-columns: 1fr; gap: 30px; padding-block: 55px; }
-        .about-mark { min-height: 210px; }
+        .about-grid { padding-block: 55px; }
         .results-grid { gap: 12px; }
         .steps { grid-template-columns: 1fr; }
         .step { min-height: 0; padding: 22px; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -591,10 +585,6 @@
 
       <section class="about-band" id="about">
         <div class="wrap about-grid">
-          <div class="about-mark" aria-hidden="true">
-            <img class="logo-dark" src="images/om-logo.svg" alt="">
-            <img class="logo-light" src="images/om-logo-light.svg" alt="">
-          </div>
           <div class="about-copy">
             <p class="eyebrow">02 · About</p>
             <h2 class="section-title">Hi, I’m Arber.</h2>
